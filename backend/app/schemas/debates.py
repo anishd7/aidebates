@@ -4,6 +4,7 @@ from typing import Annotated, Optional
 from pydantic import BaseModel, BeforeValidator, Field
 
 from app.schemas.keys import Provider
+from app.schemas.turns import TurnResponse
 
 StrFromUUID = Annotated[str, BeforeValidator(lambda v: str(v) if v is not None else v)]
 
@@ -20,17 +21,6 @@ class CreateDebateRequest(BaseModel):
     agent_a: AgentConfigInput
     agent_b: AgentConfigInput
     max_turns: int = Field(default=100, ge=2, le=100)
-
-
-class TurnResponse(BaseModel):
-    turn_number: int
-    agent_name: str
-    agent_side: str
-    content: str
-    model_used: str
-    created_at: datetime
-
-    model_config = {"from_attributes": True}
 
 
 class DebateResponse(BaseModel):

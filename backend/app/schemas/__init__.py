@@ -4,8 +4,8 @@ from app.schemas.debates import (
     DebateListItem,
     DebateListResponse,
     DebateResponse,
-    TurnResponse,
 )
+from app.schemas.turns import TurnResponse
 from app.schemas.keys import (
     DecryptedKeysResponse,
     DeleteKeyResponse,
