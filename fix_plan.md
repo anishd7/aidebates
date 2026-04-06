@@ -90,7 +90,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 - [x] **11.1** Create `frontend/components/debate/StreamingText.tsx` — renders content with blinking `█` cursor when isStreaming=true, plain markdown when false
 - [x] **11.2** Create `frontend/components/debate/DebateMessage.tsx` — single message bubble (agent name + model in header, turn number, markdown content via react-markdown, blue-50 for agent A, emerald-50 for agent B)
-- [ ] **11.3** Create `frontend/components/debate/DebateStatus.tsx` — status badge/header (topic, running/paused/completed indicator, turn counter, agent info)
+- [x] **11.3** Create `frontend/components/debate/DebateStatus.tsx` — status badge/header (topic, running/paused/completed indicator, turn counter, agent info)
 - [ ] **11.4** Create `frontend/components/debate/DebateView.tsx` — message list with auto-scroll (pause on manual scroll up, resume at bottom), Pause button, Resume button for paused, Share button for completed, error display
 - [ ] **11.5** Create `frontend/app/(app)/debate/[id]/page.tsx` — load debate from DebateManager or API, auto-start if status=created, show Resume for paused/running
 
