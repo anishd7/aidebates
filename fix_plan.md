@@ -96,7 +96,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 12: Frontend Pages — Settings
 
-- [ ] **12.1** Create `frontend/components/settings/ApiKeyForm.tsx` — per-provider card (not configured / configured states, add/update with password input + show/hide toggle, delete with confirmation, inline success/error feedback, calls refreshKeys after changes)
+- [x] **12.1** Create `frontend/components/settings/ApiKeyForm.tsx` — per-provider card (not configured / configured states, add/update with password input + show/hide toggle, delete with confirmation, inline success/error feedback, calls refreshKeys after changes)
 - [ ] **12.2** Create `frontend/app/(app)/settings/page.tsx` — renders ApiKeyForm for OpenAI and Anthropic
 
 ## Phase 13: Frontend Pages — Public Pages
