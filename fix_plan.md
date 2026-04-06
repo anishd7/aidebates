@@ -78,7 +78,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 - [x] **9.2** Create `frontend/components/layout/Sidebar.tsx` — "+ New Debate" button, scrollable debate list (topic truncated, status badge with pulsing dot for running, agent names), active highlight, mobile sheet
 - [x] **9.3** Create `frontend/components/layout/AppShell.tsx` — composes Header + Sidebar + children content area
 - [x] **9.4** Create `frontend/app/(app)/layout.tsx` — auth check (redirect to /login if unauthenticated), renders AppShell, calls fetchKeys() and loads debate list on mount
-- [ ] **9.5** Create `frontend/app/(app)/page.tsx` — redirect to /app/debates or /app/new
+- [x] **9.5** Create `frontend/app/(app)/page.tsx` — redirect to /app/debates or /app/new
 
 ## Phase 10: Frontend Pages — Create Debate
 
