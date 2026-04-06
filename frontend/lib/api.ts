@@ -26,9 +26,25 @@ class ApiRequestError extends Error {
   }
 }
 
+let cachedToken: string | null = null;
+let tokenFetchedAt = 0;
+let inflightRequest: Promise<string | null> | null = null;
+const TOKEN_TTL_MS = 5 * 60 * 1000;
+
 async function getAuthToken(): Promise<string | null> {
-  const session = await getSession();
-  return session?.accessToken ?? null;
+  if (cachedToken && Date.now() - tokenFetchedAt < TOKEN_TTL_MS) {
+    return cachedToken;
+  }
+  if (inflightRequest) {
+    return inflightRequest;
+  }
+  inflightRequest = getSession().then((session) => {
+    cachedToken = session?.accessToken ?? null;
+    tokenFetchedAt = Date.now();
+    inflightRequest = null;
+    return cachedToken;
+  });
+  return inflightRequest;
 }
 
 async function apiFetch<T>(
