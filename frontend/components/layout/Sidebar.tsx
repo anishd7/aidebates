@@ -65,11 +65,11 @@ function DebateList({
   return (
     <div className="flex flex-col gap-0.5 px-2">
       {debates.map((debate) => {
-        const isActive = pathname === `/app/debate/${debate.id}`;
+        const isActive = pathname === `/debate/${debate.id}`;
         return (
           <Link
             key={debate.id}
-            href={`/app/debate/${debate.id}`}
+            href={`/debate/${debate.id}`}
             onClick={onNavigate}
             className={cn(
               "flex flex-col gap-1 rounded-md px-3 py-2 text-sm transition-colors",
@@ -107,7 +107,7 @@ function SidebarContent({
     <div className="flex h-full flex-col">
       <div className="p-3">
         <Button asChild className="w-full justify-start gap-2" variant="outline">
-          <Link href="/app/new" onClick={onNavigate}>
+          <Link href="/new" onClick={onNavigate}>
             <Plus className="h-4 w-4" />
             New Debate
           </Link>

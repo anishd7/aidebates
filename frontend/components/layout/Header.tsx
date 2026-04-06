@@ -48,7 +48,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           </Button>
         )}
         <Link
-          href="/app"
+          href="/new"
           className="flex items-center gap-2 text-lg font-semibold text-slate-900"
         >
           <Swords className="h-5 w-5 text-blue-600" />
@@ -80,7 +80,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/app/settings" className="flex items-center">
+              <Link href="/settings" className="flex items-center">
                 <Settings className="mr-2 h-4 w-4" />
                 Settings
               </Link>

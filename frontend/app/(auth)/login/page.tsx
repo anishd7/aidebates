@@ -13,7 +13,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.replace("/app");
+      router.replace("/new");
     }
   }, [status, router]);
 
@@ -60,7 +60,7 @@ export default function LoginPage() {
           </p>
 
           <Button
-            onClick={() => signIn("google", { callbackUrl: "/app" })}
+            onClick={() => signIn("google", { callbackUrl: "/new" })}
             variant="outline"
             className="flex h-12 w-full items-center justify-center gap-3 rounded-lg border-slate-700 bg-slate-800/50 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-800 hover:text-white"
           >

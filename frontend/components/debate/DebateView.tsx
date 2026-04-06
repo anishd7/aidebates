@@ -133,9 +133,21 @@ export default function DebateView({ debateId }: DebateViewProps) {
   }, [pauseDebate, debateId]);
 
   const handleResume = useCallback(() => {
-    if (!debate) return;
-    resumeDebate(debateId, debate.turns, debate.max_turns);
-  }, [resumeDebate, debateId, debate]);
+    const completedMessages = (activeDebate?.messages ?? []).filter(
+      (m) => !m.isStreaming,
+    );
+    const turnsFromMessages: import("@/types").Turn[] = completedMessages.map((m) => ({
+      turn_number: m.turnNumber,
+      agent_name: m.agentName,
+      agent_side: m.agentSide,
+      content: m.content,
+      model_used: "",
+      created_at: "",
+    }));
+    const turns = turnsFromMessages.length > 0 ? turnsFromMessages : (debate?.turns ?? []);
+    const max = activeDebate?.maxTurns ?? debate?.max_turns ?? 0;
+    resumeDebate(debateId, turns, max);
+  }, [resumeDebate, debateId, debate, activeDebate]);
 
   const handleShare = useCallback(async () => {
     const url = `${window.location.origin}/shared/${debateId}`;
