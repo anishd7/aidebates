@@ -36,7 +36,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 - [x] **4.2** Create `backend/app/routers/health.py` — `GET /api/v1/health` returning `{"status": "healthy", "timestamp": "<ISO8601>"}`
 - [x] **4.3** Create `backend/app/schemas/__init__.py`
 - [x] **4.4** Create `backend/app/schemas/keys.py` — Pydantic schemas: `SaveKeyRequest`, `KeyInfo`, `KeyListResponse`, `DecryptedKeysResponse`
-- [ ] **4.5** Create `backend/app/routers/keys.py` — `POST /api/v1/keys` (upsert), `GET /api/v1/keys` (list masked), `GET /api/v1/keys/decrypt`, `DELETE /api/v1/keys/{provider}`
+- [x] **4.5** Create `backend/app/routers/keys.py` — `POST /api/v1/keys` (upsert), `GET /api/v1/keys` (list masked), `GET /api/v1/keys/decrypt`, `DELETE /api/v1/keys/{provider}`
 - [ ] **4.6** Create `backend/app/schemas/debates.py` — Pydantic schemas: `AgentConfigInput`, `CreateDebateRequest`, `DebateResponse`, `DebateListItem`, `DebateListResponse`
 - [ ] **4.7** Create `backend/app/schemas/turns.py` — `TurnResponse` schema
 - [ ] **4.8** Create `backend/app/routers/debates.py` — `POST /api/v1/debates` (create with provider key check), `GET /api/v1/debates` (list paginated with optional status filter), `GET /api/v1/debates/{id}` (get with optional auth for public sharing)
