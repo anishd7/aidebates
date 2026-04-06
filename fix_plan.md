@@ -13,15 +13,15 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 2: Backend Foundation
 
-- [ ] **2.1** Create `backend/requirements.txt` with all Python dependencies (fastapi, uvicorn, pydantic-settings, python-dotenv, sqlalchemy[asyncio], asyncpg, cryptography, python-jose[cryptography], openai-agents, openai, litellm, sse-starlette, httpx)
-- [ ] **2.2** Create `backend/app/__init__.py`
-- [ ] **2.3** Create `backend/app/config.py` — `Settings` class using pydantic-settings (DATABASE_URL, NEXTAUTH_SECRET, ENCRYPTION_KEY, CORS_ORIGINS)
-- [ ] **2.4** Create `backend/app/database.py` — async engine, session factory (`AsyncSession`), `get_db` FastAPI dependency, `init_db()` function
-- [ ] **2.5** Create `backend/app/models/__init__.py` — re-export all models
-- [ ] **2.6** Create `backend/app/models/user.py` — `User` model (id, email, name, avatar_url, created_at, updated_at)
-- [ ] **2.7** Create `backend/app/models/api_key.py` — `UserApiKey` model (id, user_id FK, provider, encrypted_key, key_last_four, created_at, updated_at; UNIQUE user_id+provider)
-- [ ] **2.8** Create `backend/app/models/debate.py` — `Debate` model (id, user_id FK, topic, agent_a_config JSONB, agent_b_config JSONB, status, current_turn, max_turns, created_at, updated_at; indexes on user_id, status)
-- [ ] **2.9** Create `backend/app/models/turn.py` — `Turn` model (id, debate_id FK, turn_number, agent_name, agent_side, content, model_used, created_at; UNIQUE debate_id+turn_number; index on debate_id+turn_number)
+- [x] **2.1** Create `backend/pyproject.toml` with all Python dependencies via uv (fastapi, uvicorn, pydantic-settings, python-dotenv, sqlalchemy[asyncio], asyncpg, cryptography, python-jose[cryptography], openai-agents, openai, litellm, sse-starlette, httpx)
+- [x] **2.2** Create `backend/app/__init__.py`
+- [x] **2.3** Create `backend/app/config.py` — `Settings` class using pydantic-settings (DATABASE_URL, NEXTAUTH_SECRET, ENCRYPTION_KEY, CORS_ORIGINS)
+- [x] **2.4** Create `backend/app/database.py` — async engine, session factory (`AsyncSession`), `get_db` FastAPI dependency, `init_db()` function
+- [x] **2.5** Create `backend/app/models/__init__.py` — re-export all models
+- [x] **2.6** Create `backend/app/models/user.py` — `User` model (id, email, name, avatar_url, created_at, updated_at)
+- [x] **2.7** Create `backend/app/models/api_key.py` — `UserApiKey` model (id, user_id FK, provider, encrypted_key, key_last_four, created_at, updated_at; UNIQUE user_id+provider)
+- [x] **2.8** Create `backend/app/models/debate.py` — `Debate` model (id, user_id FK, topic, agent_a_config JSONB, agent_b_config JSONB, status, current_turn, max_turns, created_at, updated_at; indexes on user_id, status)
+- [x] **2.9** Create `backend/app/models/turn.py` — `Turn` model (id, debate_id FK, turn_number, agent_name, agent_side, content, model_used, created_at; UNIQUE debate_id+turn_number; index on debate_id+turn_number)
 
 ## Phase 3: Backend Services
 

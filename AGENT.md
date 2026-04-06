@@ -13,9 +13,16 @@
 ai-debate-arena/
 ├── frontend/              # Next.js app
 │   └── .env.example       # Frontend env template
-├── backend/               # FastAPI app
-│   └── .env.example       # Backend env template
-├── docker-compose.yml     # Local Postgres (port 5432)
+├── backend/               # FastAPI app (managed by uv)
+│   ├── pyproject.toml     # Dependencies & project config
+│   ├── uv.lock            # Lockfile
+│   ├── .env.example       # Backend env template
+│   ├── app/
+│   │   ├── config.py      # Settings (pydantic-settings)
+│   │   ├── database.py    # Async engine, session, init_db
+│   │   └── models/        # SQLAlchemy models (User, UserApiKey, Debate, Turn)
+│   └── tests/             # pytest tests (run against local Postgres)
+├── docker-compose.yml     # Local Postgres 16 (port 5432)
 ├── .gitignore             # Root gitignore
 ├── specs/                 # Component specifications
 ├── fix_plan.md            # Task tracker (AI-maintained)
@@ -34,12 +41,9 @@ docker compose up -d
 
 ```bash
 cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
 cp .env.example .env
 # Edit .env: DATABASE_URL, NEXTAUTH_SECRET, ENCRYPTION_KEY, CORS_ORIGINS
-uvicorn app.main:app --reload --port 8000
+uv run uvicorn app.main:app --reload --port 8000
 ```
 
 ### Frontend
@@ -55,9 +59,11 @@ npm run dev
 
 ## Tests
 
+Requires local Postgres running (`docker compose up -d`).
+
 ```bash
-# Backend
-cd backend && python -m pytest
+# Backend (from backend/ dir)
+uv run pytest
 
 # Frontend
 cd frontend && npm test
@@ -96,4 +102,6 @@ from openai.types.responses import ResponseTextDeltaEvent
 
 ## Notes
 
-(AI will add learnings here as it works)
+- Uses `uv` for Python package management (not pip/venv). Use `uv add`, `uv run`, etc.
+- Tests run against local PostgreSQL (docker-compose), not SQLite — models use native PG types (JSONB, UUID).
+- pytest-asyncio mode is `strict` — tests must be marked with `@pytest.mark.asyncio`.
