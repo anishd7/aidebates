@@ -63,7 +63,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 - [x] **7.6** Create `frontend/lib/auth.ts` — NextAuth config with Google OAuth, JWT strategy, callbacks (jwt: store userId, session: expose userId)
 - [x] **7.7** Create `frontend/app/api/auth/[...nextauth]/route.ts` — NextAuth API route handler
 - [x] **7.8** Create `frontend/components/providers.tsx` — client-side `SessionProvider` wrapper
-- [ ] **7.9** Create `frontend/app/layout.tsx` — root layout wrapping with providers
+- [x] **7.9** Create `frontend/app/layout.tsx` — root layout wrapping with providers
 
 ## Phase 8: Frontend API & State Layer
 
