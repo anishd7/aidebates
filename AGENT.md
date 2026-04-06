@@ -101,6 +101,15 @@ from agents.items import MessageOutputItem, ItemHelpers
 from openai.types.responses import ResponseTextDeltaEvent
 ```
 
+## Secrets & Keys Policy
+
+**Never commit raw keys, tokens, or secrets to source code.** GitHub secret scanning will reject pushes containing them.
+
+- **App code:** All secrets (ENCRYPTION_KEY, NEXTAUTH_SECRET, API keys, etc.) must be read from environment variables via `app/config.py` → `settings`. Never hardcode.
+- **Tests:** Generate keys at runtime (e.g. `Fernet.generate_key().decode()`). Never put real or static key values in test files.
+- **Env files:** `.env` and `.env.local` are gitignored. Only `.env.example` is committed, with placeholder descriptions — never actual values.
+- **If a key is accidentally committed:** Soft reset (`git reset --soft`) to before the bad commit, verify the diff is clean, and recommit. The key must not appear anywhere in git history.
+
 ## Notes
 
 - Uses `uv` for Python package management (not pip/venv). Use `uv add`, `uv run`, etc.
