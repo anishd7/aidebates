@@ -112,7 +112,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 15: Integration Testing & Polish
 
-- [ ] **15.1** Verify local dev setup: `docker compose up` for Postgres, backend runs on 8000, frontend on 3000
+- [x] **15.1** Verify local dev setup: `docker compose up` for Postgres, backend runs on 8000, frontend on 3000
 - [ ] **15.2** Test end-to-end auth flow: Google OAuth → JWT → backend validates → user created in DB
 - [ ] **15.3** Test API key management: save, list, decrypt, delete keys through the Settings UI
 - [ ] **15.4** Test debate creation: fill form, submit, verify debate created in DB with correct config
