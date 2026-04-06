@@ -79,7 +79,7 @@ uv run pytest
 # Frontend (from frontend/ dir)
 npm run build   # Type-check + production build
 npm run lint    # ESLint
-npm test        # Tests (when configured)
+npm test        # Vitest (unit + component tests via happy-dom)
 ```
 
 ## Installing agent skills (Skills CLI)
@@ -127,3 +127,5 @@ from openai.types.responses import ResponseTextDeltaEvent
 - Uses `uv` for Python package management (not pip/venv). Use `uv add`, `uv run`, etc.
 - Tests run against local PostgreSQL (docker-compose), not SQLite — models use native PG types (JSONB, UUID).
 - pytest-asyncio mode is `strict` — tests must be marked with `@pytest.mark.asyncio`.
+- Frontend component tests use `@testing-library/react` + `happy-dom` (not jsdom — jsdom has ESM/top-level-await issues with vitest 4.x). Vitest config uses `@vitejs/plugin-react` for JSX transformation.
+- Pre-existing TS errors exist in `__tests__/apiKeys.test.ts` and `__tests__/sse.test.ts` (type narrowing issues) — unrelated to new work.

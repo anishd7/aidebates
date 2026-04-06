@@ -74,7 +74,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 9: Frontend App Shell & Layout
 
-- [ ] **9.1** Create `frontend/components/layout/Header.tsx` — logo, mobile hamburger, user avatar with dropdown (name, email, Settings link, Sign Out)
+- [x] **9.1** Create `frontend/components/layout/Header.tsx` — logo, mobile hamburger, user avatar with dropdown (name, email, Settings link, Sign Out)
 - [ ] **9.2** Create `frontend/components/layout/Sidebar.tsx` — "+ New Debate" button, scrollable debate list (topic truncated, status badge with pulsing dot for running, agent names), active highlight, mobile sheet
 - [ ] **9.3** Create `frontend/components/layout/AppShell.tsx` — composes Header + Sidebar + children content area
 - [ ] **9.4** Create `frontend/app/(app)/layout.tsx` — auth check (redirect to /login if unauthenticated), renders AppShell, calls fetchKeys() and loads debate list on mount
