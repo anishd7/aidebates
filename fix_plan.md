@@ -51,7 +51,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 6: Backend App Entrypoint
 
-- [ ] **6.1** Create `backend/app/main.py` — FastAPI app with CORS middleware, lifespan (init_db + cleanup stale running→paused debates), register all routers under `/api/v1`
+- [x] **6.1** Create `backend/app/main.py` — FastAPI app with CORS middleware, lifespan (init_db + cleanup stale running→paused debates), register all routers under `/api/v1`
 
 ## Phase 7: Frontend Foundation
 

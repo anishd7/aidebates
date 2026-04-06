@@ -18,6 +18,7 @@ ai-debate-arena/
 │   ├── uv.lock            # Lockfile
 │   ├── .env.example       # Backend env template
 │   ├── app/
+│   │   ├── main.py        # FastAPI app entrypoint (CORS, lifespan, routers)
 │   │   ├── config.py      # Settings (pydantic-settings)
 │   │   ├── database.py    # Async engine, session, init_db
 │   │   ├── routers/       # API route handlers (health, keys, debates, turns)
