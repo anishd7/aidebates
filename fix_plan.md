@@ -6,10 +6,10 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 1: Project Scaffolding & Infrastructure
 
-- [ ] **1.1** Create root `.gitignore` (node_modules, .next, __pycache__, .venv, .env, .env.local, .DS_Store, dist, build)
-- [ ] **1.2** Create `docker-compose.yml` with local PostgreSQL 16 (user: debate, password: debate_local, db: debate_arena, port 5432)
-- [ ] **1.3** Create `backend/.env.example` with DATABASE_URL, NEXTAUTH_SECRET, ENCRYPTION_KEY, CORS_ORIGINS
-- [ ] **1.4** Create `frontend/.env.example` with NEXTAUTH_URL, NEXTAUTH_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXT_PUBLIC_API_URL
+- [x] **1.1** Create root `.gitignore` (node_modules, .next, __pycache__, .venv, .env, .env.local, .DS_Store, dist, build)
+- [x] **1.2** Create `docker-compose.yml` with local PostgreSQL 16 (user: debate, password: debate_local, db: debate_arena, port 5432)
+- [x] **1.3** Create `backend/.env.example` with DATABASE_URL, NEXTAUTH_SECRET, ENCRYPTION_KEY, CORS_ORIGINS
+- [x] **1.4** Create `frontend/.env.example` with NEXTAUTH_URL, NEXTAUTH_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXT_PUBLIC_API_URL
 
 ## Phase 2: Backend Foundation
 

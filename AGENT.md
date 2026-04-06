@@ -11,12 +11,15 @@
 
 ```
 ai-debate-arena/
-├── frontend/          # Next.js app
-├── backend/           # FastAPI app
-├── docker-compose.yml # Local Postgres
-├── specs/             # Component specifications
-├── fix_plan.md        # Task tracker (AI-maintained)
-└── PROMPT.md          # Loop instructions
+├── frontend/              # Next.js app
+│   └── .env.example       # Frontend env template
+├── backend/               # FastAPI app
+│   └── .env.example       # Backend env template
+├── docker-compose.yml     # Local Postgres (port 5432)
+├── .gitignore             # Root gitignore
+├── specs/                 # Component specifications
+├── fix_plan.md            # Task tracker (AI-maintained)
+└── PROMPT.md              # Loop instructions
 ```
 
 ## Setup
@@ -59,6 +62,28 @@ cd backend && python -m pytest
 # Frontend
 cd frontend && npm test
 ```
+
+## Installing agent skills (Skills CLI)
+
+Skills extend the agent with reusable workflows and domain knowledge. This project uses the open skills ecosystem ([skills.sh](https://skills.sh/)); the package manager is **`npx skills`** (requires Node/npm).
+
+| Action | Command |
+|--------|---------|
+| Search | `npx skills find [query]` |
+| Install a skill | `npx skills add <owner/repo@skill-name>` |
+| Install globally (user-level), no prompts | `npx skills add <owner/repo@skill-name> -g -y` |
+| Check for updates | `npx skills check` |
+| Update installed skills | `npx skills update` |
+| Scaffold a new skill | `npx skills init <skill-name>` |
+
+**Examples:**
+
+```bash
+npx skills find nextjs testing
+npx skills add vercel-labs/agent-skills@react-best-practices -g -y
+```
+
+Prefer skills with high install counts and reputable sources (`anthropics`, `vercel-labs`, etc.). If unsure, search the [leaderboard](https://skills.sh/) first, then use `npx skills find` with specific keywords.
 
 ## Key SDK Imports
 
