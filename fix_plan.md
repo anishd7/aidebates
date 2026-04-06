@@ -102,7 +102,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 ## Phase 13: Frontend Pages — Public Pages
 
 - [x] **13.1** Create `frontend/app/page.tsx` — landing page (navbar with logo + Sign In, hero section, 3 feature cards, footer)
-- [ ] **13.2** Create `frontend/app/(auth)/login/page.tsx` — login page with Google OAuth button (signIn('google')), redirect to /app if already authenticated
+- [x] **13.2** Create `frontend/app/(auth)/login/page.tsx` — login page with Google OAuth button (signIn('google')), redirect to /app if already authenticated
 - [ ] **13.3** Create `frontend/app/shared/[id]/page.tsx` — public shared debate view (no auth, fetch via getSharedDebate, reuse DebateMessage, SEO metadata from debate topic, 404 for non-completed, CTA to landing page)
 
 ## Phase 14: Dockerfiles
