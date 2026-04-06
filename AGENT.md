@@ -11,7 +11,14 @@
 
 ```
 ai-debate-arena/
-├── frontend/              # Next.js app
+├── frontend/              # Next.js 14 app (App Router, TypeScript, Tailwind CSS)
+│   ├── app/               # Next.js App Router pages & layouts
+│   ├── public/            # Static assets
+│   ├── package.json       # Dependencies (npm)
+│   ├── tailwind.config.ts # Tailwind configuration
+│   ├── tsconfig.json      # TypeScript config (strict, path alias @/*)
+│   ├── next.config.mjs    # Next.js config
+│   ├── postcss.config.js  # PostCSS config (tailwindcss)
 │   └── .env.example       # Frontend env template
 ├── backend/               # FastAPI app (managed by uv)
 │   ├── pyproject.toml     # Dependencies & project config
@@ -69,8 +76,10 @@ Requires local Postgres running (`docker compose up -d`).
 # Backend (from backend/ dir)
 uv run pytest
 
-# Frontend
-cd frontend && npm test
+# Frontend (from frontend/ dir)
+npm run build   # Type-check + production build
+npm run lint    # ESLint
+npm test        # Tests (when configured)
 ```
 
 ## Installing agent skills (Skills CLI)
