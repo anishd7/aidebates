@@ -43,7 +43,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 5: Backend Debate Engine
 
-- [ ] **5.1** Create `backend/app/services/agent_factory.py` — `create_agent()` (OpenAI via `OpenAIResponsesModel`, Anthropic via `LitellmModel` with "anthropic/" prefix), `build_system_prompt()`
+- [x] **5.1** Create `backend/app/services/agent_factory.py` — `create_agent()` (OpenAI via `OpenAIResponsesModel`, Anthropic via `LitellmModel` with "anthropic/" prefix), `build_system_prompt()`
 - [ ] **5.2** Create `backend/app/utils/__init__.py`
 - [ ] **5.3** Create `backend/app/utils/sse.py` — SSE event formatting helpers for turn_start, token, turn_complete, error events
 - [ ] **5.4** Create `backend/app/services/debate_orchestrator.py` — `build_agent_input()` (conversation reconstruction with role mapping), `classify_error()`, streaming orchestration logic
