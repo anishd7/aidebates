@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { SignJWT } from "jose";
+
+const secret = new TextEncoder().encode(process.env.NEXTAUTH_SECRET);
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -31,6 +34,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.name = token.name as string;
         session.user.image = token.picture as string;
       }
+
+      // Sign a plain HS256 JWT for the backend API.
+      // The backend verifies this with the same NEXTAUTH_SECRET via python-jose.
+      session.accessToken = await new SignJWT({
+        email: token.email,
+        name: token.name,
+        picture: token.picture,
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setExpirationTime("1h")
+        .sign(secret);
+
       return session;
     },
   },
