@@ -20,6 +20,7 @@ ai-debate-arena/
 │   ├── app/
 │   │   ├── config.py      # Settings (pydantic-settings)
 │   │   ├── database.py    # Async engine, session, init_db
+│   │   ├── services/      # Business logic (encryption, agent factory, orchestrator)
 │   │   └── models/        # SQLAlchemy models (User, UserApiKey, Debate, Turn)
 │   └── tests/             # pytest tests (run against local Postgres)
 ├── docker-compose.yml     # Local Postgres 16 (port 5432)

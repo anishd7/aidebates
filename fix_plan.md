@@ -25,8 +25,8 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 3: Backend Services
 
-- [ ] **3.1** Create `backend/app/services/__init__.py`
-- [ ] **3.2** Create `backend/app/services/encryption.py` — `encrypt_key()`, `decrypt_key()`, `get_key_last_four()` using Fernet with ENCRYPTION_KEY
+- [x] **3.1** Create `backend/app/services/__init__.py`
+- [x] **3.2** Create `backend/app/services/encryption.py` — `encrypt_key()`, `decrypt_key()`, `get_key_last_four()` using Fernet with ENCRYPTION_KEY
 - [ ] **3.3** Create `backend/app/middleware/__init__.py`
 - [ ] **3.4** Create `backend/app/middleware/auth.py` — `get_current_user()` (JWT validation with python-jose, HS256, user creation on first auth) and `get_optional_user()` (returns None if no token)
 

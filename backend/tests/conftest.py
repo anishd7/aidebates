@@ -1,9 +1,12 @@
 import os
 
+from cryptography.fernet import Fernet
+
 # Set test env vars BEFORE importing app modules
+# Generate a fresh Fernet key each test run to avoid committing raw keys
 os.environ.setdefault("DATABASE_URL", "postgresql+asyncpg://debate:debate_local@localhost:5432/debate_arena")
 os.environ.setdefault("NEXTAUTH_SECRET", "test-secret")
-os.environ.setdefault("ENCRYPTION_KEY", "dGVzdC1lbmNyeXB0aW9uLWtleS0xMjM0NTY3ODkwYWI=")
+os.environ.setdefault("ENCRYPTION_KEY", Fernet.generate_key().decode())
 os.environ.setdefault("CORS_ORIGINS", "http://localhost:3000")
 
 import pytest_asyncio
