@@ -84,7 +84,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 - [x] **10.1** Create `frontend/components/debate/AgentConfig.tsx` — reusable agent config sub-form (name, provider select, model select filtered by provider, personality textarea)
 - [x] **10.2** Create `frontend/components/debate/CreateDebateForm.tsx` — topic textarea, two AgentConfig panels (blue/green accents), max turns input, submit flow (validate, check hasKey, call createDebate, navigate to debate view, start loop)
-- [ ] **10.3** Create `frontend/app/(app)/new/page.tsx` — renders CreateDebateForm
+- [x] **10.3** Create `frontend/app/(app)/new/page.tsx` — renders CreateDebateForm
 
 ## Phase 11: Frontend Pages — Debate View
 
