@@ -59,7 +59,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 - [x] **7.2** Configure `tailwind.config.ts`, `postcss.config.js`, `frontend/app/globals.css` with shadcn/ui CSS variables
 - [x] **7.3** Install shadcn/ui and required components (button, card, dialog, input, label, select, textarea, avatar, scroll-area, separator, sheet, badge, dropdown-menu, tooltip)
 - [x] **7.4** Create `frontend/lib/utils.ts` — `cn()` utility (clsx + tailwind-merge)
-- [ ] **7.5** Create `frontend/types/index.ts` — shared TypeScript types (AgentConfig, Debate, DebateListItem, Turn, ApiKeys, etc.)
+- [x] **7.5** Create `frontend/types/index.ts` — shared TypeScript types (AgentConfig, Debate, DebateListItem, Turn, ApiKeys, etc.)
 - [ ] **7.6** Create `frontend/lib/auth.ts` — NextAuth config with Google OAuth, JWT strategy, callbacks (jwt: store userId, session: expose userId)
 - [ ] **7.7** Create `frontend/app/api/auth/[...nextauth]/route.ts` — NextAuth API route handler
 - [ ] **7.8** Create `frontend/components/providers.tsx` — client-side `SessionProvider` wrapper
