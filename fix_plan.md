@@ -107,7 +107,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 
 ## Phase 14: Dockerfiles
 
-- [ ] **14.1** Create `backend/Dockerfile` — python:3.11-slim, install requirements first (layer caching), copy app, CMD uvicorn, expose 8000
+- [x] **14.1** Create `backend/Dockerfile` — python:3.14-slim + uv, install deps first (layer caching), copy app, CMD uvicorn, expose 8000
 - [ ] **14.2** Create `frontend/Dockerfile` — node:18-alpine, multi-stage build (install → build → production), CMD npm start, expose 3000
 
 ## Phase 15: Integration Testing & Polish
