@@ -70,7 +70,7 @@ Every task needed to build the project, sorted by priority and dependency order.
 - [x] **8.1** Create `frontend/lib/api.ts` — typed `apiFetch<T>()` wrapper with JWT auth header, all API methods (saveKey, listKeys, decryptKeys, deleteKey, createDebate, listDebates, getDebate, getSharedDebate)
 - [x] **8.2** Create `frontend/lib/sse.ts` — `parseSSEEvents(buffer)` returning `{ parsed: SSEEvent[], remaining: string }`
 - [x] **8.3** Create `frontend/stores/apiKeys.ts` — Zustand store for API keys (fetchKeys, refreshKeys, hasKey, clearKeys; keys in memory only, never localStorage)
-- [ ] **8.4** Create `frontend/stores/debateManager.ts` — Zustand store for debate loop (startDebate, resumeDebate, pauseDebate, getDebate, clearDebate; runDebateLoop with SSE consumption, token accumulation, turn_complete finalization, error handling, 409 retry, AbortController for pause)
+- [x] **8.4** Create `frontend/stores/debateManager.ts` — Zustand store for debate loop (startDebate, resumeDebate, pauseDebate, getDebate, clearDebate; runDebateLoop with SSE consumption, token accumulation, turn_complete finalization, error handling, 409 retry, AbortController for pause)
 
 ## Phase 9: Frontend App Shell & Layout
 
