@@ -25,6 +25,7 @@ async def next_turn(
     db: AsyncSession = Depends(get_db),
     x_openai_key: str | None = Header(default=None, alias="X-OpenAI-Key"),
     x_anthropic_key: str | None = Header(default=None, alias="X-Anthropic-Key"),
+    x_tavily_key: str | None = Header(default=None, alias="X-Tavily-Key"),
 ) -> Response:
     """Generate the next debate turn, streamed as SSE events.
 
@@ -118,7 +119,28 @@ async def next_turn(
     else:
         api_key = raw_key
 
-    # 5. Load all existing turns ordered by turn_number
+    # 5. Resolve Tavily key if web search is enabled for this agent
+    tavily_api_key: str | None = None
+    if agent_info["agent_config"].get("web_search_enabled"):
+        tavily_api_key = x_tavily_key
+        if not tavily_api_key:
+            stored_tavily = (
+                await db.execute(
+                    select(UserApiKey).where(
+                        UserApiKey.user_id == uid,
+                        UserApiKey.provider == "tavily",
+                    )
+                )
+            ).scalar_one_or_none()
+            if stored_tavily:
+                tavily_api_key = decrypt_key(stored_tavily.encrypted_key)
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Web search is enabled but no Tavily API key configured. Add one in Settings or disable web search.",
+                )
+
+    # 6. Load all existing turns ordered by turn_number
     existing_turns = (
         await db.execute(
             select(Turn)
@@ -127,7 +149,7 @@ async def next_turn(
         )
     ).scalars().all()
 
-    # 6. Set status to running if it isn't already
+    # 7. Set status to running if it isn't already
     if debate.status != "running":
         await db.execute(
             update(Debate)
@@ -137,7 +159,7 @@ async def next_turn(
         await db.commit()
         debate.status = "running"
 
-    # 7. Return SSE stream
+    # 8. Return SSE stream
     return EventSourceResponse(
-        stream_turn(debate, list(existing_turns), api_key, db)
+        stream_turn(debate, list(existing_turns), api_key, db, tavily_api_key=tavily_api_key)
     )

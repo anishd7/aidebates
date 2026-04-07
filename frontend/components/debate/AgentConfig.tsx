@@ -13,7 +13,7 @@ import {
 import { useApiKeysStore } from "@/stores/apiKeys";
 import type { AgentConfig as AgentConfigType, Provider } from "@/types";
 import { cn } from "@/lib/utils";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Globe } from "lucide-react";
 
 const MODELS_BY_PROVIDER: Record<
   Provider,
@@ -55,6 +55,7 @@ export default function AgentConfig({
 
   const models = MODELS_BY_PROVIDER[value.provider];
   const missingKey = !hasKey(value.provider);
+  const hasTavilyKey = hasKey("tavily");
 
   const handleProviderChange = (provider: Provider) => {
     const defaultModel = MODELS_BY_PROVIDER[provider][0].value;
@@ -152,6 +153,36 @@ export default function AgentConfig({
           <p className="text-xs text-muted-foreground text-right">
             {value.personality.length}/1000
           </p>
+        </div>
+
+        {/* Web Search */}
+        <div className="space-y-2">
+          <label
+            htmlFor={`${agentLabel}-web-search`}
+            className={cn(
+              "flex items-center gap-2 cursor-pointer",
+              !hasTavilyKey && "opacity-60 cursor-not-allowed"
+            )}
+          >
+            <input
+              id={`${agentLabel}-web-search`}
+              type="checkbox"
+              checked={value.web_search_enabled ?? false}
+              onChange={(e) =>
+                onChange({ ...value, web_search_enabled: e.target.checked })
+              }
+              disabled={!hasTavilyKey}
+              className="h-4 w-4 rounded border-gray-300"
+            />
+            <Globe className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-medium">Enable Web Search</span>
+          </label>
+          {!hasTavilyKey && (
+            <p className="flex items-center gap-1.5 text-xs text-amber-600">
+              <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+              Add a Tavily API key in Settings to enable web search.
+            </p>
+          )}
         </div>
       </div>
     </div>

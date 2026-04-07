@@ -11,13 +11,14 @@ import { saveKey, deleteKey } from "@/lib/api";
 import { useApiKeysStore } from "@/stores/apiKeys";
 import type { Provider } from "@/types";
 
-const PROVIDER_LABELS: Record<Provider, string> = {
+const PROVIDER_LABELS: Record<Provider | "tavily", string> = {
   openai: "OpenAI",
   anthropic: "Anthropic",
+  tavily: "Tavily",
 };
 
 interface ApiKeyFormProps {
-  provider: Provider;
+  provider: Provider | "tavily";
 }
 
 type FormState = "idle" | "editing" | "saving" | "deleting";

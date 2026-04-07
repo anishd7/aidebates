@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useApiKeysStore } from "@/stores/apiKeys";
 import { useDebateManagerStore } from "@/stores/debateManager";
-import { createDebate } from "@/lib/api";
+import { createDebate, getDebate } from "@/lib/api";
 import AgentConfig from "./AgentConfig";
 import type { AgentConfig as AgentConfigType } from "@/types";
 import { Loader2, Swords } from "lucide-react";
@@ -19,6 +19,7 @@ const DEFAULT_AGENT_A: AgentConfigType = {
   personality: "",
   provider: "openai",
   model: "gpt-4o",
+  web_search_enabled: false,
 };
 
 const DEFAULT_AGENT_B: AgentConfigType = {
@@ -26,6 +27,7 @@ const DEFAULT_AGENT_B: AgentConfigType = {
   personality: "",
   provider: "anthropic",
   model: "claude-sonnet-4-20250514",
+  web_search_enabled: false,
 };
 
 interface FormErrors {
@@ -47,6 +49,7 @@ function validateAgent(config: AgentConfigType, label: string): string | undefin
 
 export default function CreateDebateForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const hasKey = useApiKeysStore((s) => s.hasKey);
   const startDebate = useDebateManagerStore((s) => s.startDebate);
 
@@ -56,6 +59,21 @@ export default function CreateDebateForm() {
   const [maxTurns, setMaxTurns] = useState(6);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Pre-populate from a previous debate if ?from=<debateId> is present
+  const fromId = searchParams.get("from");
+  useEffect(() => {
+    if (!fromId) return;
+    let cancelled = false;
+    getDebate(fromId).then((debate) => {
+      if (cancelled) return;
+      setTopic(debate.topic);
+      setAgentA(debate.agent_a_config);
+      setAgentB(debate.agent_b_config);
+      setMaxTurns(debate.max_turns);
+    }).catch(() => { /* ignore — just use defaults */ });
+    return () => { cancelled = true; };
+  }, [fromId]);
 
   function validate(): FormErrors {
     const errs: FormErrors = {};

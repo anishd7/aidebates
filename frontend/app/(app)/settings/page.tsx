@@ -19,6 +19,17 @@ export default function SettingsPage() {
         <ApiKeyForm provider="openai" />
         <ApiKeyForm provider="anthropic" />
       </div>
+
+      <div className="space-y-2">
+        <h2 className="text-lg font-semibold">Search Tools</h2>
+        <p className="text-sm text-muted-foreground">
+          Add a search API key to let agents search the web during debates.
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <ApiKeyForm provider="tavily" />
+      </div>
     </div>
   );
 }

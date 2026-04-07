@@ -190,6 +190,9 @@ export async function fetchNextTurn(
   if (apiKeys.anthropic) {
     headers["X-Anthropic-Key"] = apiKeys.anthropic;
   }
+  if (apiKeys.tavily) {
+    headers["X-Tavily-Key"] = apiKeys.tavily;
+  }
 
   const response = await fetch(
     `${API_BASE}/api/v1/debates/${debateId}/next-turn`,

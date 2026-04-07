@@ -1,12 +1,14 @@
 // ─── Provider & Agent Config ────────────────────────────────────────────────
 
 export type Provider = "openai" | "anthropic";
+export type SearchProvider = "tavily";
 
 export interface AgentConfig {
   name: string;
   personality: string;
   provider: Provider;
   model: string;
+  web_search_enabled?: boolean;
 }
 
 // ─── Debates ────────────────────────────────────────────────────────────────
@@ -70,6 +72,7 @@ export interface Turn {
 export interface ApiKeys {
   openai?: string;
   anthropic?: string;
+  tavily?: string;
 }
 
 export interface KeyInfo {

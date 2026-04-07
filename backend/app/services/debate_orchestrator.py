@@ -190,6 +190,8 @@ async def stream_turn(
     turns: list[Turn],
     api_key: str,
     db: AsyncSession,
+    *,
+    tavily_api_key: str | None = None,
 ) -> AsyncGenerator[ServerSentEvent, None]:
     """Generate a single debate turn via streaming and persist the result.
 
@@ -206,6 +208,7 @@ async def stream_turn(
         turns: Existing turns for the debate, ordered by turn_number.
         api_key: Decrypted API key for the current agent's provider.
         db: An async DB session for persistence.
+        tavily_api_key: Optional Tavily API key for web search tool.
 
     Yields:
         ServerSentEvent objects for the SSE response.
@@ -237,7 +240,7 @@ async def stream_turn(
         )
 
         # Create agent and run streamed
-        agent = create_agent(agent_config, api_key)
+        agent = create_agent(agent_config, api_key, tavily_api_key=tavily_api_key)
         result = Runner.run_streamed(agent, input=conversation)
 
         accumulated_text = ""

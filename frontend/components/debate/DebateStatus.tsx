@@ -1,7 +1,15 @@
 "use client";
 
-import { memo } from "react";
-import { Circle, Pause, CheckCircle2, Clock, Bot } from "lucide-react";
+import { memo, useState } from "react";
+import {
+  Circle,
+  Pause,
+  CheckCircle2,
+  Clock,
+  Bot,
+  ChevronDown,
+  Globe,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { DebateStatus as DebateStatusType, AgentConfig } from "@/types";
@@ -42,6 +50,60 @@ const statusConfig = {
   },
 } as const;
 
+interface AgentDetailProps {
+  config: AgentConfig;
+  colorClass: string;
+  iconColorClass: string;
+}
+
+function AgentDetail({ config, colorClass, iconColorClass }: AgentDetailProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 w-full text-left hover:opacity-80 transition-opacity"
+      >
+        <Bot className={`h-3.5 w-3.5 ${iconColorClass} shrink-0`} />
+        <span className={`${colorClass} font-medium`}>{config.name}</span>
+        <span className="text-muted-foreground text-xs">({config.model})</span>
+        {config.web_search_enabled && (
+          <Globe className="h-3 w-3 text-muted-foreground shrink-0" />
+        )}
+        <ChevronDown
+          className={`h-3 w-3 text-muted-foreground shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <div className="ml-5 mt-1.5 text-xs space-y-1 text-muted-foreground border-l-2 border-muted pl-3">
+          <div>
+            <span className="font-medium text-foreground/70">Provider:</span>{" "}
+            {config.provider}
+          </div>
+          <div>
+            <span className="font-medium text-foreground/70">Model:</span>{" "}
+            {config.model}
+          </div>
+          <div>
+            <span className="font-medium text-foreground/70">Web search:</span>{" "}
+            {config.web_search_enabled ? "Enabled" : "Disabled"}
+          </div>
+          {config.personality && (
+            <div>
+              <span className="font-medium text-foreground/70">
+                Personality:
+              </span>
+              <p className="mt-0.5 whitespace-pre-wrap">{config.personality}</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DebateStatusComponent({
   topic,
   status,
@@ -75,25 +137,17 @@ function DebateStatusComponent({
 
       {/* Agent Info */}
       <div className="flex flex-col gap-1.5 text-sm">
-        <div className="flex items-center gap-2">
-          <Bot className="h-3.5 w-3.5 text-blue-600 shrink-0" />
-          <span className="text-blue-700 font-medium">
-            {agentAConfig.name}
-          </span>
-          <span className="text-muted-foreground text-xs">
-            ({agentAConfig.model})
-          </span>
-        </div>
+        <AgentDetail
+          config={agentAConfig}
+          colorClass="text-blue-700"
+          iconColorClass="text-blue-600"
+        />
         <span className="text-xs text-muted-foreground pl-5">vs</span>
-        <div className="flex items-center gap-2">
-          <Bot className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-          <span className="text-emerald-700 font-medium">
-            {agentBConfig.name}
-          </span>
-          <span className="text-muted-foreground text-xs">
-            ({agentBConfig.model})
-          </span>
-        </div>
+        <AgentDetail
+          config={agentBConfig}
+          colorClass="text-emerald-700"
+          iconColorClass="text-emerald-600"
+        />
       </div>
     </div>
   );

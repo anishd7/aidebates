@@ -12,12 +12,14 @@ interface ApiKeysState {
   keys: {
     openai?: string;
     anthropic?: string;
+    tavily?: string;
   };
 
   /** Non-sensitive metadata for UI display */
   configured: {
     openai?: ProviderMeta;
     anthropic?: ProviderMeta;
+    tavily?: ProviderMeta;
   };
 
   isLoaded: boolean;
@@ -46,7 +48,7 @@ export const useApiKeysStore = create<ApiKeysState>((set, get) => ({
       const configured: ApiKeysState["configured"] = {};
       for (const k of keyList.keys) {
         const provider = k.provider as keyof ApiKeysState["configured"];
-        if (provider === "openai" || provider === "anthropic") {
+        if (provider === "openai" || provider === "anthropic" || provider === "tavily") {
           configured[provider] = {
             key_last_four: k.key_last_four,
             updated_at: k.updated_at,
@@ -57,7 +59,7 @@ export const useApiKeysStore = create<ApiKeysState>((set, get) => ({
       const keys: ApiKeysState["keys"] = {};
       for (const [provider, value] of Object.entries(decrypted.keys)) {
         if (
-          (provider === "openai" || provider === "anthropic") &&
+          (provider === "openai" || provider === "anthropic" || provider === "tavily") &&
           value != null
         ) {
           keys[provider] = value;

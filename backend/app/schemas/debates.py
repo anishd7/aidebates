@@ -14,6 +14,7 @@ class AgentConfigInput(BaseModel):
     personality: str = Field(..., min_length=1, max_length=1000)
     provider: Provider
     model: str = Field(..., min_length=1)
+    web_search_enabled: bool = False
 
 
 class CreateDebateRequest(BaseModel):

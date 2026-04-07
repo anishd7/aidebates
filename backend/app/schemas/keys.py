@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 class Provider(str, Enum):
     openai = "openai"
     anthropic = "anthropic"
+    tavily = "tavily"
 
 
 class SaveKeyRequest(BaseModel):

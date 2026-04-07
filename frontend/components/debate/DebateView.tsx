@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Pause,
   Play,
@@ -8,6 +9,7 @@ import {
   Check,
   AlertCircle,
   Loader2,
+  RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +29,7 @@ interface DebateViewProps {
 }
 
 export default function DebateView({ debateId }: DebateViewProps) {
+  const router = useRouter();
   const [debate, setDebate] = useState<Debate | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
@@ -45,9 +48,16 @@ export default function DebateView({ debateId }: DebateViewProps) {
   const resumeDebate = useDebateManagerStore((state) => state.resumeDebate);
   const pauseDebate = useDebateManagerStore((state) => state.pauseDebate);
 
-  // Load debate from API if not in DebateManager
+  // Load debate from API once to get full config (agent configs, topic, etc.)
+  // Then auto-start if status is 'created' and not already active.
+  const hasStartedRef = useRef(false);
   useEffect(() => {
-    if (activeDebate) {
+    if (debate) {
+      // Already loaded — just check if we need to auto-start
+      if (!hasStartedRef.current && debate.status === "created" && !activeDebate) {
+        hasStartedRef.current = true;
+        startDebate(debate.id, debate.max_turns);
+      }
       setLoading(false);
       return;
     }
@@ -58,11 +68,6 @@ export default function DebateView({ debateId }: DebateViewProps) {
         const data = await getDebate(debateId);
         if (cancelled) return;
         setDebate(data);
-
-        // Auto-start if status is 'created'
-        if (data.status === "created") {
-          startDebate(data.id, data.max_turns);
-        }
       } catch (err) {
         if (cancelled) return;
         setFetchError(
@@ -77,7 +82,7 @@ export default function DebateView({ debateId }: DebateViewProps) {
     return () => {
       cancelled = true;
     };
-  }, [debateId, activeDebate, startDebate]);
+  }, [debateId, debate, activeDebate, startDebate]);
 
   // Determine data source: prefer DebateManager over API-loaded debate
   const status = activeDebate?.status ?? debate?.status ?? "created";
@@ -149,6 +154,11 @@ export default function DebateView({ debateId }: DebateViewProps) {
     resumeDebate(debateId, turns, max);
   }, [resumeDebate, debateId, debate, activeDebate]);
 
+  const handleRestart = useCallback(() => {
+    if (!debate) return;
+    router.push(`/new?from=${debate.id}`);
+  }, [debate, router]);
+
   const handleShare = useCallback(async () => {
     const url = `${window.location.origin}/shared/${debateId}`;
     try {
@@ -204,6 +214,12 @@ export default function DebateView({ debateId }: DebateViewProps) {
           <Button variant="outline" size="sm" onClick={handlePause}>
             <Pause className="h-4 w-4 mr-1" />
             Pause
+          </Button>
+        )}
+        {debate && (
+          <Button variant="outline" size="sm" onClick={handleRestart}>
+            <RotateCcw className="h-4 w-4 mr-1" />
+            Restart
           </Button>
         )}
       </div>
