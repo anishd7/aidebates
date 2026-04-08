@@ -20,7 +20,7 @@ Link: https://gallant-blessing-production-f241.up.railway.app/
 | **Web Search Tool** | Tavily API via `@function_tool` decorator |
 | **Database** | PostgreSQL 16 with SQLAlchemy 2.0 (async) + asyncpg |
 | **Streaming** | Server-Sent Events (SSE) via `sse-starlette` |
-| **Auth** | JWT verification (HS256), auto-provisioned users |
+| **Auth** | BetterAuth, auto-provisioned users |
 | **Encryption** | Fernet symmetric encryption for stored API keys |
 | **Runtime** | Python 3.14+, managed with `uv` |
 
@@ -31,7 +31,7 @@ Link: https://gallant-blessing-production-f241.up.railway.app/
 | **Framework** | Next.js 14 (App Router, TypeScript) |
 | **UI Components** | shadcn/ui (Radix primitives) + Tailwind CSS |
 | **State Management** | Zustand |
-| **Auth** | NextAuth.js v5 (Discord, Twitter/X, Credentials) |
+| **Auth** | BetterAuth (Discord, Credentials) |
 | **Real-Time** | SSE consumption with custom parser |
 | **Markdown** | react-markdown for rendered agent responses |
 
@@ -90,12 +90,12 @@ The conversation history is reconstructed per-agent: the agent's own previous tu
 
 ### Authentication Flow
 
-Users can sign in via **Discord**, **Twitter/X**, or **username/password**:
+Users can sign in via **Discord** or **username/password**:
 
 1. User clicks a sign-in option on the login page (or creates an account with username/email/password)
-2. NextAuth.js handles the OAuth flow (or credentials validation via the backend) and issues a JWT
-3. The JWT is sent as a Bearer token to the backend on every API call
-4. The backend verifies the JWT signature and auto-creates a user record on first login
+2. BetterAuth handles the OAuth flow (or credentials validation) and manages the session
+3. The session token is sent to the backend on every API call
+4. The backend verifies the session and auto-creates a user record on first login
 
 ### Debate Creation Flow
 
@@ -135,7 +135,7 @@ Users can sign in via **Discord**, **Twitter/X**, or **username/password**:
 
 ### 1. Sign In
 
-Click "Get Started" on the landing page and sign in with Discord, Twitter/X, or create an account with a username and password.
+Click "Get Started" on the landing page and sign in with Discord or create an account with a username and password.
 
 ### 2. Configure API Keys
 
@@ -188,7 +188,7 @@ The sidebar shows all your debates with status indicators:
 - **Python** 3.14+ and [**uv**](https://docs.astral.sh/uv/) (Python package manager)
 - **Docker** and **Docker Compose** (for PostgreSQL)
 - At least one LLM API key (OpenAI or Anthropic)
-- **Optional**: Discord and/or Twitter developer app credentials (for OAuth sign-in -- username/password works without these)
+- **Optional**: Discord developer app credentials (for OAuth sign-in -- username/password works without these)
 
 ### 1. Clone the Repository
 
@@ -261,12 +261,9 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 DISCORD_CLIENT_ID=your-discord-client-id
 DISCORD_CLIENT_SECRET=your-discord-client-secret
 
-# Twitter/X OAuth (https://developer.twitter.com/)
-TWITTER_CLIENT_ID=your-twitter-client-id
-TWITTER_CLIENT_SECRET=your-twitter-client-secret
 ```
 
-> **Note:** `NEXTAUTH_SECRET` must match between frontend and backend -- the backend verifies JWTs signed by NextAuth. Discord and Twitter credentials are optional -- username/password auth works without them.
+> **Note:** Discord credentials are optional -- username/password auth works without them.
 
 Install dependencies and start the dev server:
 
@@ -280,7 +277,7 @@ The frontend will be available at `http://localhost:3000`.
 ### 5. Verify Everything Works
 
 1. Open `http://localhost:3000` in your browser
-2. Create an account (username/password) or sign in with Discord/Twitter
+2. Create an account (username/password) or sign in with Discord
 3. Go to Settings and add at least one API key (OpenAI or Anthropic)
 4. Create a new debate and watch the agents argue in real-time
 
