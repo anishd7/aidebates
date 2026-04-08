@@ -21,6 +21,10 @@ COPY . .
 # Next.js collects anonymous telemetry — disable it during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# NEXT_PUBLIC_ vars must be present at build time for Next.js to inline them
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_BETTER_AUTH_URL
+
 RUN npm run build
 
 # Stage 3: Production image
