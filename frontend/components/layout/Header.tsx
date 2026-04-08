@@ -1,7 +1,8 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut } from "@/lib/auth-client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Menu, Settings, LogOut, Swords } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -30,6 +31,7 @@ function getInitials(name: string | null | undefined): string {
 
 export default function Header({ onToggleSidebar }: HeaderProps) {
   const { data: session } = useSession();
+  const router = useRouter();
   const user = session?.user;
 
   return (
@@ -87,7 +89,10 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => signOut({ callbackUrl: "/" })}
+              onClick={async () => {
+                await signOut();
+                router.push("/");
+              }}
               className="text-red-600 focus:text-red-600"
             >
               <LogOut className="mr-2 h-4 w-4" />

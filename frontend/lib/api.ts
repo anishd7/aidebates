@@ -1,5 +1,3 @@
-import { getSession } from "next-auth/react";
-
 import type {
   ApiError,
   ApiKeys,
@@ -26,6 +24,7 @@ class ApiRequestError extends Error {
   }
 }
 
+const AUTH_BASE = process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3000";
 let cachedToken: string | null = null;
 let tokenFetchedAt = 0;
 let inflightRequest: Promise<string | null> | null = null;
@@ -38,12 +37,27 @@ async function getAuthToken(): Promise<string | null> {
   if (inflightRequest) {
     return inflightRequest;
   }
-  inflightRequest = getSession().then((session) => {
-    cachedToken = session?.accessToken ?? null;
-    tokenFetchedAt = Date.now();
-    inflightRequest = null;
-    return cachedToken;
-  });
+  inflightRequest = fetch(`${AUTH_BASE}/api/token`, {
+    credentials: "include",
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        cachedToken = null;
+        // Don't cache failures — allow immediate retry on next call
+        tokenFetchedAt = 0;
+      } else {
+        const data = await res.json();
+        cachedToken = data?.token ?? null;
+        tokenFetchedAt = Date.now();
+      }
+      inflightRequest = null;
+      return cachedToken;
+    })
+    .catch(() => {
+      cachedToken = null;
+      tokenFetchedAt = 0;
+      return null;
+    });
   return inflightRequest;
 }
 
