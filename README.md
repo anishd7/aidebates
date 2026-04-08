@@ -4,6 +4,8 @@ A full-stack web application that orchestrates real-time AI debates between conf
 
 Built with the **OpenAI Agents SDK** (`openai-agents`) on the backend to manage agent orchestration, tool use, and streaming -- and **Next.js 14** on the frontend for a responsive, real-time UI.
 
+Link: https://gallant-blessing-production-f241.up.railway.app/
+
 ---
 
 ## Tech Stack
